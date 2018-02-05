@@ -15,7 +15,7 @@ output_file.write('##CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tGENOT
 
 
 ## Open reference sequence and store in dict, keyed by genomic coordinate
-with open(r'U:\23andme2vcf-py\23andme_reference_sequence.txt', 'r') as ref_sequence:
+with open(r'23andme_reference_sequence.txt', 'r') as ref_sequence:
     ref_dict = {}
     for line_ref in ref_sequence:
         fields_ref = line_ref.strip().split('\t')
