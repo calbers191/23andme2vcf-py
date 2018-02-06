@@ -101,8 +101,5 @@ with open(sys.argv[1], 'r') as alt_sequence_file:
                         output_file.write(
                             'chr' + chrom_alt + '\t' + position_alt + '\t' + rsid + '\t' + ref_dict[
                                 genomic_coord_alt] + '\t' + call_2 + '\t.\t.\t.\tGT\t0/1\n')
-<<<<<<< HEAD
 
 output_file.close()
-=======
->>>>>>> f6a4123551eaa3cce9a14dd6e61cb04b1f185f79
