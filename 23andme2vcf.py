@@ -88,7 +88,7 @@ with open(sys.argv[1], 'r') as alt_sequence_file:
                         else:
                             output_file.write(
                                 'chr' + chrom_alt + '\t' + position_alt + '\t' + rsid + '\t' + ref_dict[
-                                    genomic_coord_alt] + '\t' + call_1 + ',' + call_2 + '\t.\t.\t.\tGT\t1/1\n')
+                                    genomic_coord_alt] + '\t' + call_1 + ',' + call_2 + '\t.\t.\t.\tGT\t1/2\n')
 
                     ## If call 1 doesn't match reference, call 1 written to VCF
                     elif call_1_not_ref is True:
