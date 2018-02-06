@@ -15,7 +15,7 @@ output_file.write('##CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tGENOT
 
 
 ## Open reference sequence and store in dict, keyed by genomic coordinate
-with open(r'U:\23andme2vcf-py\23andme_reference_sequence.txt', 'r') as ref_sequence:
+with open(r'23andme_reference_sequence.txt', 'r') as ref_sequence:
     ref_dict = {}
     for line_ref in ref_sequence:
         fields_ref = line_ref.strip().split('\t')
@@ -88,7 +88,7 @@ with open(sys.argv[1], 'r') as alt_sequence_file:
                         else:
                             output_file.write(
                                 'chr' + chrom_alt + '\t' + position_alt + '\t' + rsid + '\t' + ref_dict[
-                                    genomic_coord_alt] + '\t' + call_1 + ',' + call_2 + '\t.\t.\t.\tGT\t1/2\n')
+                                    genomic_coord_alt] + '\t' + call_1 + ',' + call_2 + '\t.\t.\t.\tGT\t1/1\n')
 
                     ## If call 1 doesn't match reference, call 1 written to VCF
                     elif call_1_not_ref is True:
@@ -101,5 +101,8 @@ with open(sys.argv[1], 'r') as alt_sequence_file:
                         output_file.write(
                             'chr' + chrom_alt + '\t' + position_alt + '\t' + rsid + '\t' + ref_dict[
                                 genomic_coord_alt] + '\t' + call_2 + '\t.\t.\t.\tGT\t0/1\n')
+<<<<<<< HEAD
 
 output_file.close()
+=======
+>>>>>>> f6a4123551eaa3cce9a14dd6e61cb04b1f185f79
