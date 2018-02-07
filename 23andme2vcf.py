@@ -75,7 +75,7 @@ with open(sys.argv[1], 'r') as alt_sequence_file:
                             call_1_not_ref = True
 
                     ## Write line of VCF based on results of mutation flags
-                    ## If both flags are True, GT field written as 1/1
+                    ## If both flags are True
                     if call_1_not_ref is True and call_2_not_ref is True:
 
                         ## If both calls are identical, genotype is homozygous alt
