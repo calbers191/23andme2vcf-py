@@ -4,15 +4,27 @@ import sys
 from datetime import date
 
 
+## Input validation
+if '-i' in sys.argv:
+    input_path = sys.argv[sys.argv.index('-i')+1]
+else:
+    print('Please use argument "-i /path/to/23andme_raw_data.txt" to declare your input file.')
+    sys.exit(1)
+
+if '-o' in sys.argv:
+    output_path = sys.argv[sys.argv.index('-o')+1]
+else:
+    print('Please use argument "-o /path/to/output.vcf" to name your output file.')
+    sys.exit(1)
+
 ## Write header lines to VCF
-output_file = open(sys.argv[2], 'w')
+output_file = open(output_path, 'w')
 output_file.write('##fileformat=VCFv4.2\n')
 output_file.write('##fileDate=' + str(date.today()) + '\n')
 output_file.write('##source=23andme2vcf.py https://github.com/calbers191/23andme2vcf-py\n')
 output_file.write('##reference=23andme_reference_sequence.txt\n')
 output_file.write('##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">\n')
 output_file.write('##CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tGENOTYPE\n')
-
 
 ## Open reference sequence and store in dict, keyed by genomic coordinate
 with open(r'23andme_reference_sequence.txt', 'r') as ref_sequence:
@@ -25,8 +37,8 @@ with open(r'23andme_reference_sequence.txt', 'r') as ref_sequence:
         ref_base = fields_ref[2]
         ref_dict[genomic_coord_ref] = ref_base
 
-## Open 23andme file provided as first command line argument.
-with open(sys.argv[1], 'r') as alt_sequence_file:
+## Open 23andme file provided as command line argument.
+with open(input_path, 'r') as alt_sequence_file:
 
     ## Process data line by line
     for line_alt in alt_sequence_file:
@@ -101,5 +113,14 @@ with open(sys.argv[1], 'r') as alt_sequence_file:
                         output_file.write(
                             'chr' + chrom_alt + '\t' + position_alt + '\t' + rsid + '\t' + ref_dict[
                                 genomic_coord_alt] + '\t' + call_2 + '\t.\t.\t.\tGT\t0/1\n')
+
+                    ## If both calls match reference
+                    else:
+
+                        ## If gvcf option given at command line
+                        if '-gvcf' in sys.argv:
+                            output_file.write(
+                                'chr' + chrom_alt + '\t' + position_alt + '\t' + rsid + '\t' + ref_dict[
+                                    genomic_coord_alt] + '\t.\t.\t.\t.\tGT\t0/0\n')
 
 output_file.close()
