@@ -57,8 +57,11 @@ with open(input_path, 'r') as alt_sequence_file:
             call_1 = fields_alt[3][0]
             call_2 = fields_alt[3][1] if len(fields_alt[3]) > 1 else None ## None if second call is missing
 
-            ## Skip no calls, insertions, and deletions
-            no_calls = ['-', 'I', 'D']
+            ## Skip no calls, insertions, and deletions unless -gvcf option is selected
+            if '-gvcf' not in sys.argv:
+                no_calls = ['-', 'I', 'D']
+            else:
+                no_calls = []
 
             ## Set mutation flags to false
             call_1_not_ref = False
